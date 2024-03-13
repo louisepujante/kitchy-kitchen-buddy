@@ -1,0 +1,19 @@
+
+.customLinkStyle {  
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.customLinkStyle:hover {
+  text-decoration: none !important;
+}
+
+body {
+  margin: 0;
+  margin-bottom: 50px;
+}
+
+body {
+  /* background-color: #58514E; */
+  /* background-color: #8FB8DE; */
+}
