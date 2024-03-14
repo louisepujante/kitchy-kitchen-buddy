@@ -67,5 +67,5 @@ yarn dev
   - Allows user to keep track of a set of a list Ingredients available in their kitchen
 
 ### ERD
-> ![image](/erd.png)
+> ![image](erd.png)
 
