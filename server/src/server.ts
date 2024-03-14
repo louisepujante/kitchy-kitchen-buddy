@@ -23,20 +23,11 @@ const storage = multer.diskStorage({
 export const upload = multer({ storage })
 
 async function main() {
+  app.use(bodyParser.json({ limit: '50mb' }))
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
+
   app.use(cors())
   app.use(express.json())
-
-  var jsonParser = bodyParser.json({
-    limit: '1000mb',
-    type: 'application/json',
-  })
-  var urlencodedParser = bodyParser.urlencoded({
-    extended: true,
-    limit: '1000mb', 
-    type: 'application/x-www-form-urlencoded',
-  })
-  app.use(jsonParser)
-  app.use(urlencodedParser)
 
   app.use('/api/recipes', recipeRoutes)
   app.use('/api/ingredientBag', ingredientBagRoutes)
