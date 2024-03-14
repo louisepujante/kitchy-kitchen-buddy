@@ -13,7 +13,7 @@ cd web
 npm i
 ```
 
-### Command to run web
+### Command to run in web directory
 
 ```bash
 npm run dev
@@ -42,7 +42,7 @@ npm i
 npx prisma migrate dev
 ```
 
-### Command to run server
+### Command to run in server directory
 
 ```bash
 npm run dev
@@ -67,5 +67,5 @@ yarn dev
   - Allows user to keep track of a set of a list Ingredients available in their kitchen
 
 ### ERD
-> ![image](erd.png)
+> ![image](./erd.png)
 
