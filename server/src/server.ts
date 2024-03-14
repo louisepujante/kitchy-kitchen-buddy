@@ -4,8 +4,8 @@ import { PrismaClient } from '@prisma/client'
 import multer from 'multer'
 
 import recipeRoutes from './modules/recipes/recipe.routes'
+import ingredientBagRoutes from './modules/ingredient-bag/ingredient-bag.routes'
 import { addRecipe } from './modules/recipes/recipes.controller'
-import { getAllIngredientsInBag } from './modules/ingredient-bag/ingredient-bag.controller'
 
 export const prisma = new PrismaClient()
 
@@ -27,9 +27,8 @@ async function main() {
   app.use(express.json())
 
   app.use('/api/recipes', recipeRoutes)
-  app.get('/api/ingredientBag', getAllIngredientsInBag)
-  // app.post('/api/recipes/create', upload.single('image'), addRecipe)
-  
+  app.use('/api/ingredientBag', ingredientBagRoutes)
+  // app.post('/api/recipes/create', upload.single('image'), addRecipe)  
 
   // Catch unregistered routes
   app.all('*', (req: Request, res: Response) => {

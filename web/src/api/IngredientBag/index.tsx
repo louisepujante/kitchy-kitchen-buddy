@@ -10,6 +10,10 @@ export type IngredientBag = {
   ingredient: string
 }
 
+type AddIngredientToBagData = {
+  data: Omit<IngredientBag, 'id'>[]
+}
+
 
 export const IngredientBagAPI = {
   findAll: () => {
@@ -19,10 +23,10 @@ export const IngredientBagAPI = {
     }  
     return API.request<FindAllIngredientBagResponse>(options)
   },
-  create: (data: Omit<IngredientBag, 'id'>[]) => {
+  create: (data: AddIngredientToBagData) => {
     const options = {
       method: 'POST',
-      url: '/recipes/create',
+      url: '/ingredientBag/create',
       header: {
         'Content-Type': 'multipart/form-data'
       },

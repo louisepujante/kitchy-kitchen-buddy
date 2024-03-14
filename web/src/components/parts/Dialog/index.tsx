@@ -33,25 +33,15 @@ const Dialog = ({
   submitButtonText,
   closeButtonText,
   sx,
-  content,
 }: DialogProps) => {
   return (
     <MUIDialog
       open={open}
       onClose={handleClose}
-      // sx={{ ...sx, border: '1px solid black' }}
       sx={{ ...sx, '& .MuiPaper-root': { gap: 1 } }}
     >
       <DialogTitle sx={{ fontSize: '20px' }}>{title}</DialogTitle>
       <DialogContent>
-        {/* <Stack alignItems='center' padding={2}>
-          {content?.type === 'success' ? (
-            <CheckCircleOutlineIcon sx={{ fontSize: '50px', color: 'green' }} />
-          ) : (
-            <ErrorOutlineIcon sx={{ fontSize: '50px', color: 'red' }} />
-          )}
-          <h4>{content?.message}</h4>
-        </Stack> */}
         {children}
       </DialogContent>
       <DialogActions sx={{ padding: 2, paddingTop: 0, gap: 4 }}>
@@ -71,7 +61,6 @@ const Dialog = ({
             onClick={handleSubmit}
             size='large'
             variant='contained'
-            autoFocus
             fullWidth
           >
             {submitButtonText ?? 'Submit'}

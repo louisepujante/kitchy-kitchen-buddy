@@ -20,13 +20,15 @@ export const addIngredientToBag = async (
   response: Response
 ) => {
   try {
-    const { ingredientsAvailable } = request.body
+    const { data } = request.body
 
-     await prisma.ingredientBag.create({
-      data: ingredientsAvailable
+    await prisma.ingredientBag.createMany({
+      data,
     })
 
-    response.status(201).json({ message: 'Successfully added ingredients to bag' })
+    response
+      .status(201)
+      .json({ message: 'Successfully added ingredients to bag' })
   } catch (error) {
     response.status(500).json({ error: error })
   }

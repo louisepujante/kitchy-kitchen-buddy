@@ -57,18 +57,18 @@ const RecipeListPage = () => {
               A micro-recipe sharing site and kitchen assistant
             </Typography>
           </Stack>
-          <Button
-            size='large'
-            variant='contained'
-            startIcon={<AddIcon />}
-            sx={{ alignSelf: 'end' }}
-          >
+          <Stack direction='row' gap={2} alignSelf='end' justifyItems='stretch'>
             <Link href='/recipes/create' className='customLinkStyle'>
-              <Typography>Add recipe</Typography>
+              <Button
+                size='large'
+                startIcon={<AddIcon />}
+                sx={{ alignSelf: 'end' }}
+              >
+                <Typography>Add recipe</Typography>
+              </Button>
             </Link>
-          </Button>
-          
-          <BagPopover />
+            <BagPopover />
+          </Stack>
           <Grid
             container
             gap={2}
@@ -76,7 +76,7 @@ const RecipeListPage = () => {
             sx={{ height: '450px' }}
           >
             {recipes.map((recipe) => (
-              <Grid item sx={{ width: '20%' }}>
+              <Grid key={recipe.id} item sx={{ width: '20%' }}>
                 <RecipeCard key={recipe.id} recipe={recipe} />
               </Grid>
             ))}

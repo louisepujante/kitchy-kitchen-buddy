@@ -1,26 +1,25 @@
 'use client'
 
-import { QuantityUnit, Recipe, RecipeAPI } from '@/api/Recipe'
+import { useParams, useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import {
-  Box,
   Button,
   Card,
   CardContent,
   CardMedia,
   Divider,
-  Popover,
   Stack,
-  TextField,
   Typography,
 } from '@mui/material'
-import { useParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import Dialog from '@/components/parts/Dialog'
 import { ArrowBack } from '@mui/icons-material'
-import Link from 'next/link'
+
+import { Recipe, RecipeAPI } from '@/api/Recipe'
+import Dialog from '@/components/parts/Dialog'
 import { defaultSnackbarInfo, useSnackbarContext } from '@/contexts/Snackbar'
+import BagPopover from '@/components/parts/BagPopover'
 
 type RecipeDetailHeaderProps = {
   value?: string
@@ -87,11 +86,17 @@ const RecipeDetailPage = () => {
   const { id } = useParams<{ id: string }>()
   const [recipe, setRecipe] = useState<Recipe>()
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    RecipeAPI.findOne(id).then(({ data }) => {
-      setRecipe(data.data || [])
-    })
+    setLoading(true)
+    RecipeAPI.findOne(id)
+      .then(({ data }) => {
+        setRecipe(data.data || [])
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [])
 
   const handleDeleteRecipe = async () => {
@@ -136,12 +141,12 @@ const RecipeDetailPage = () => {
             marginTop: 4,
             gap: 3,
             border: 1,
-            borderColor: 'gray',
+            borderColor: 'lightgray',
           }}
         >
           <CardMedia
             component='img'
-            image='https://www.allrecipes.com/thmb/jD-nOpMRkm8ynBBYEG7I2iy1274=/0x512/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/11887_pesto-pasta_Rita-4x3-82d239b2ced84722975543e3ca95cbc3.jpg'
+            src='/placeholder-image.png'
             sx={{ width: '30%' }}
           />
           <CardContent
@@ -157,6 +162,7 @@ const RecipeDetailPage = () => {
               <Button startIcon={<DeleteIcon />} onClick={() => setOpen(true)}>
                 Delete recipe
               </Button>
+              <BagPopover />
             </Stack>
             <Stack gap={3}>
               <RecipeDetail

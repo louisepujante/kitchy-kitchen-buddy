@@ -97,7 +97,7 @@ const CreatePage = () => {
               }}
               className='customLinkStyle'
             >
-              <ArrowBackIcon sx={{ fontSize: '50px' }} />
+              <ArrowBackIcon sx={{ fontSize: '30px' }} />
             </Link>
             <h1 style={{ flexGrow: 1 }}>Add a new recipe</h1>
           </Stack>
