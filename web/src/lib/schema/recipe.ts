@@ -17,13 +17,7 @@ export const recipeSchema = yup.object({
     .default(Difficulty.Novice)
     .required(),
   description: yup.string().nullable(),
-  image: yup.string().default('sample-image-here'),
-  // TODO: Fix image saving
-  // image: yup.mixed().test('fileType', 'Invalid file type', (value) => {
-  //   if (!(value instanceof File)) return false
-  //   const file = value as File
-  //   return ['image/jpeg', 'image/png'].includes(file.type)
-  // }),
+  image: yup.string().required(),
   ingredients: yup.array().of(ingredientsSchema).required(),
   steps: yup.array().of(stepsSchema).required(),
 })

@@ -5,6 +5,7 @@ import multer from 'multer'
 
 import recipeRoutes from './modules/recipes/recipe.routes'
 import ingredientBagRoutes from './modules/ingredient-bag/ingredient-bag.routes'
+import bodyParser from 'body-parser'
 
 export const prisma = new PrismaClient()
 
@@ -25,10 +26,20 @@ async function main() {
   app.use(cors())
   app.use(express.json())
 
+  var jsonParser = bodyParser.json({
+    limit: '1000mb',
+    type: 'application/json',
+  })
+  var urlencodedParser = bodyParser.urlencoded({
+    extended: true,
+    limit: '1000mb', 
+    type: 'application/x-www-form-urlencoded',
+  })
+  app.use(jsonParser)
+  app.use(urlencodedParser)
+
   app.use('/api/recipes', recipeRoutes)
   app.use('/api/ingredientBag', ingredientBagRoutes)
-  // TODO: Fix image saing
-  // app.post('/api/recipes/create', upload.single('image'), addRecipe)  
 
   // Catch unregistered routes
   app.all('*', (req: Request, res: Response) => {

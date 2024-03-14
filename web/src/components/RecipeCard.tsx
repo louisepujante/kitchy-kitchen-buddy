@@ -14,7 +14,7 @@ interface Props {
   recipe: Recipe
 }
 
-const RecipeCard = ({ recipe }: Props) => {
+const RecipeCard = ({ recipe }: Props) => {  
   return (
     <Card
       sx={{
@@ -38,7 +38,7 @@ const RecipeCard = ({ recipe }: Props) => {
         >
           <CardMedia
             component='img'
-            src='/placeholder-image.png'
+            src={recipe.image}
             sx={{ height: '200px' }}
           />
           <CardContent sx={{ padding: 2, flexGrow: 1 }}>

@@ -14,9 +14,31 @@ import InputField from '@/components/parts/InputField'
 const RecipeForm = ({ buttonText }: { buttonText?: string }) => {
   const { control, setValue } = useFormContext()
 
-  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0]
-    if (uploadedFile) setValue('image', uploadedFile)
+
+    if (!uploadedFile) {
+      console.error('No file selected')
+      return
+    }
+
+    try {
+      const base64String = await toBase64(uploadedFile)
+      setValue('image', base64String)
+      console.log('Base64 encoded file:', base64String)
+      // Further process the base64String (e.g., send to server)
+    } catch (error) {
+      console.error('Error reading file:', error)
+    }
+  }
+
+  const toBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = (error) => reject(error)
+    })
   }
 
   return (
@@ -54,19 +76,6 @@ const RecipeForm = ({ buttonText }: { buttonText?: string }) => {
         optional
       />
       <TextField type='file' onChange={handleFileUpload} />
-      {/*       
-        <Button
-          type='button'
-          startIcon={<FileUpload />}
-          sx={{
-            border: '1px solid gray',
-            borderStyle: 'dotted',
-            borderRadius: 2,
-            minHeight: '200px',
-          }}
-        >
-          Upload an image
-        </Button> */}
       <Button type='submit' variant='contained' fullWidth>
         {buttonText ?? 'Add a recipe'}
       </Button>

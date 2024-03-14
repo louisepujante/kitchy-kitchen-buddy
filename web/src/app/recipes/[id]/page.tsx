@@ -82,7 +82,7 @@ const RecipeDetailPage = () => {
         >
           <CardMedia
             component='img'
-            src='/placeholder-image.png'
+            image={recipe?.image}
             sx={{ width: '30%' }}
           />
           <CardContent

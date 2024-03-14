@@ -54,8 +54,6 @@ const CreatePage = () => {
       } = await RecipeAPI.create({
         ...rest,
         steps: orderedSteps,
-        // TODO: Fix image saving
-        // image: image as File,
       })
       setSnackbarInfo({
         message,
