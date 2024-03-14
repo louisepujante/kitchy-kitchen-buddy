@@ -10,7 +10,7 @@ import RecipeForm from '@/components/templates/Form/RecipeForm'
 import IngredientsForm from '@/components/templates/Form/IngredientsForm'
 import StepsForm from '@/components/templates/Form/StepsForm'
 import { FormValues, recipeSchema } from '@/lib/schema/recipe'
-import { RecipeAPI, UpdateRecipeData } from '@/api/Recipe'
+import { RecipeAPI } from '@/api/Recipe'
 import { useSnackbarContext } from '@/contexts/Snackbar'
 
 const EditRecipePage = () => {  

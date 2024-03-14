@@ -1,25 +1,19 @@
 'use client'
 
-import { useState } from 'react'
-import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
+import Link from 'next/link'
 import {
   Box,
-  Button,
   Divider,
-  IconButton,
   Stack,
-  Typography,
 } from '@mui/material'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import { Difficulty, QuantityUnit, RecipeAPI } from '@/api/Recipe'
+import { RecipeAPI } from '@/api/Recipe'
 import IngredientsForm from '@/components/templates/Form/IngredientsForm'
 import RecipeForm from '@/components/templates/Form/RecipeForm'
 import StepsForm from '@/components/templates/Form/StepsForm'
-import Dialog, { ModalContent } from '@/components/parts/Dialog'
-import Link from 'next/link'
 import { FormValues, recipeSchema } from '@/lib/schema/recipe'
 import { defaultSnackbarInfo, useSnackbarContext } from '@/contexts/Snackbar'
 
@@ -60,6 +54,7 @@ const CreatePage = () => {
       } = await RecipeAPI.create({
         ...rest,
         steps: orderedSteps,
+        // TODO: Fix image saving
         // image: image as File,
       })
       setSnackbarInfo({

@@ -20,65 +20,7 @@ import { Recipe, RecipeAPI } from '@/api/Recipe'
 import Dialog from '@/components/parts/Dialog'
 import { defaultSnackbarInfo, useSnackbarContext } from '@/contexts/Snackbar'
 import BagPopover from '@/components/parts/BagPopover'
-
-type RecipeDetailHeaderProps = {
-  value?: string
-  label: string
-}
-
-const RecipeDetailHeader = ({ value, label }: RecipeDetailHeaderProps) => {
-  return (
-    <Stack alignItems='center'>
-      <Typography fontSize='25px' fontWeight='bold'>
-        {value}
-      </Typography>
-      <Typography fontSize='15px'>{label}</Typography>
-    </Stack>
-  )
-}
-
-type RecipeDetailProps = {
-  title?: string
-  description?: string
-  duration?: number
-  ingredientsLength?: number
-  difficulty?: string
-}
-
-const RecipeDetail = ({
-  title,
-  description,
-  duration,
-  ingredientsLength,
-  difficulty,
-}: RecipeDetailProps) => {
-  return (
-    <Stack
-      direction='row'
-      justifyContent='space-between'
-      alignItems='center'
-      gap={5}
-    >
-      <Stack width='50%'>
-        <h1>{title}</h1>
-        <Typography>{description}</Typography>
-      </Stack>
-      <Stack
-        direction='row'
-        gap={3}
-        sx={{ justifySelf: 'end' }}
-        divider={<Divider orientation='vertical' flexItem />}
-      >
-        <RecipeDetailHeader value={duration?.toString()} label='hours' />
-        <RecipeDetailHeader
-          value={ingredientsLength?.toString()}
-          label='ingredients'
-        />
-        <RecipeDetailHeader value={difficulty} label='difficulty' />
-      </Stack>
-    </Stack>
-  )
-}
+import { RecipeDetail } from '@/components/parts/RecipeDetail'
 
 const RecipeDetailPage = () => {
   const router = useRouter()
@@ -86,17 +28,11 @@ const RecipeDetailPage = () => {
   const { id } = useParams<{ id: string }>()
   const [recipe, setRecipe] = useState<Recipe>()
   const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
-    RecipeAPI.findOne(id)
-      .then(({ data }) => {
-        setRecipe(data.data || [])
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    RecipeAPI.findOne(id).then(({ data }) => {
+      setRecipe(data.data || [])
+    })
   }, [])
 
   const handleDeleteRecipe = async () => {

@@ -5,7 +5,6 @@ import multer from 'multer'
 
 import recipeRoutes from './modules/recipes/recipe.routes'
 import ingredientBagRoutes from './modules/ingredient-bag/ingredient-bag.routes'
-import { addRecipe } from './modules/recipes/recipes.controller'
 
 export const prisma = new PrismaClient()
 
@@ -28,6 +27,7 @@ async function main() {
 
   app.use('/api/recipes', recipeRoutes)
   app.use('/api/ingredientBag', ingredientBagRoutes)
+  // TODO: Fix image saing
   // app.post('/api/recipes/create', upload.single('image'), addRecipe)  
 
   // Catch unregistered routes
